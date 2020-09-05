@@ -16,8 +16,6 @@ eslint:
 test_production:
   image: golang:alpine
   stage: test
-  only:
-    - production
   script:
     - CGO_ENABLED=0 go test ./...
 
@@ -25,7 +23,7 @@ deploy_production:
   stage: deploy
   environment: Production
   only:
-    - production
+    - master
   script:
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json

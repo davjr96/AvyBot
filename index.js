@@ -6,7 +6,7 @@ const twilio = require("twilio");
 
 const MessagingResponse = twilio.twiml.MessagingResponse;
 
-const projectId = process.env.GCLOUD_PROJECT;
+const projectId = "avybot";
 const region = "us-central1";
 
 const url = "https://www.sierraavalanchecenter.org/advisory-rss.xml";

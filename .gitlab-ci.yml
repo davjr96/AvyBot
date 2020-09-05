@@ -1,4 +1,17 @@
-image: google/cloud-sdk:alpine
+image: node:latest
+
+stages:
+  - lint
+  - test
+  - deploy
+
+eslint:
+  stage: lint
+  script:
+    # Install ESLint in this docker container
+    - npm install -g eslint
+    # Run ESLint
+    - eslint AvyBot.js
 
 test_production:
   image: golang:alpine

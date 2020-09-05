@@ -10,7 +10,7 @@ eslint:
     # Install ESLint in this docker container
     - npm install -g eslint
     # Run ESLint
-    - eslint AvyBot.js
+    - eslint index.js
 
 deploy_production:
   image: google/cloud-sdk:alpine

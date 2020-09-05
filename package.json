@@ -13,5 +13,8 @@
     "axios": "^0.20.0",
     "cheerio": "^1.0.0-rc.3",
     "twilio": "^3.49.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1"
   }
 }

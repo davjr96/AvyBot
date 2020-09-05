@@ -1,7 +1,7 @@
 {
   "name": "avybot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A bot to scrape the SAC and respond via twilio",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

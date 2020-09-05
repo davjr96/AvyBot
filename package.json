@@ -1,0 +1,17 @@
+{
+  "name": "AvyBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "AvyBot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "axios": "^0.20.0",
+    "cheerio": "^1.0.0-rc.3",
+    "twilio": "^3.49.0"
+  }
+}

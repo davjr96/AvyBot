@@ -14,17 +14,21 @@ const region = "us-central1";
 
 const url = "https://www.sierraavalanchecenter.org/advisory-rss.xml";
 
-// Access the twilio key from google secrets manager.
-const name = "projects/avybot/secrets/twilio/versions/latest";
+async function accessSecretVersion() {
+  // Access the twilio.
+  const name = "projects/avybot/secrets/twilio/versions/latest";
 
-const [accessResponse] = client.accessSecretVersion({
-  name: name,
-});
+  const [accessResponse] = await client.accessSecretVersion({
+    name: name,
+  });
 
-const twilioKey = accessResponse.payload.data.toString("utf8");
+  const twilioKey = accessResponse.payload.data.toString("utf8");
+  return twilioKey;
+}
 
-exports.reply = (req, res) => {
+exports.reply = async (req, res) => {
   let isValid = true;
+  const twilioKey = await accessSecretVersion();
 
   // Only validate that requests came from Twilio when the function has been
   // deployed to production.

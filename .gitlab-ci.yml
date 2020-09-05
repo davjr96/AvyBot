@@ -2,7 +2,6 @@ image: node:latest
 
 stages:
   - lint
-  - test
   - deploy
 
 eslint:
@@ -13,12 +12,6 @@ eslint:
     # Run ESLint
     - eslint AvyBot.js
 
-test_production:
-  image: golang:alpine
-  stage: test
-  script:
-    - CGO_ENABLED=0 go test ./...
-
 deploy_production:
   image: google/cloud-sdk:alpine
   stage: deploy
@@ -28,6 +21,6 @@ deploy_production:
   script:
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
-    - gcloud --project $PROJECT_ID functions deploy HelloGet --runtime go111 --trigger-http
+    - gcloud --project $PROJECT_ID functions deploy reply --trigger-http
   after_script:
     - rm /tmp/$CI_PIPELINE_ID.json

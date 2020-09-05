@@ -1,12 +1,21 @@
-image: node:latest
+image: google/cloud-sdk:alpine
 
-stages:
-  - lint
-
-eslint:
-  stage: lint
+test_production:
+  image: golang:alpine
+  stage: test
+  only:
+    - production
   script:
-    # Install ESLint in this docker container
-    - npm install -g eslint
-    # Run ESLint
-    - eslint AvyBot.js
+    - CGO_ENABLED=0 go test ./...
+
+  deploy_production:
+    stage: deploy
+    environment: Production
+    only:
+      - production
+    script:
+      - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+      - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+      - gcloud --quiet --project $PROJECT_ID functions deploy HelloGet --runtime go111 --trigger-http
+    after_script:
+      - rm /tmp/$CI_PIPELINE_ID.json

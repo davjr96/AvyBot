@@ -17,7 +17,7 @@ const url = "https://www.sierraavalanchecenter.org/advisory-rss.xml";
 // Access the twilio key from google secrets manager.
 const name = "projects/avybot/secrets/twilio/versions/latest";
 
-const [accessResponse] = await client.accessSecretVersion({
+const [accessResponse] = client.accessSecretVersion({
   name: name,
 });
 

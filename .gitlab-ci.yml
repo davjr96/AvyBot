@@ -2,6 +2,7 @@ image: node:latest
 
 stages:
   - lint
+  - test
   - deploy
 
 eslint:
@@ -21,6 +22,6 @@ deploy_production:
   script:
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
-    - gcloud --project $PROJECT_ID functions deploy reply --trigger-http
+    - gcloud --project $PROJECT_ID functions deploy reply --runtime nodejs12 --trigger-http
   after_script:
     - rm /tmp/$CI_PIPELINE_ID.json

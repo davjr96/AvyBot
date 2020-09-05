@@ -3,6 +3,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const twilio = require("twilio");
+const { SecretManagerServiceClient } = require("@google-cloud/secret-manager");
+
+const client = new SecretManagerServiceClient();
 
 const MessagingResponse = twilio.twiml.MessagingResponse;
 
@@ -11,19 +14,24 @@ const region = "us-central1";
 
 const url = "https://www.sierraavalanchecenter.org/advisory-rss.xml";
 
+// Access the twilio key from google secrets manager.
+const name = "projects/avybot/secrets/twilio/versions/latest";
+
+const [accessResponse] = await client.accessSecretVersion({
+  name: name,
+});
+
+const twilioKey = accessResponse.payload.data.toString("utf8");
+
 exports.reply = (req, res) => {
   let isValid = true;
 
   // Only validate that requests came from Twilio when the function has been
   // deployed to production.
   if (process.env.NODE_ENV === "production") {
-    isValid = twilio.validateExpressRequest(
-      req,
-      "2da2691cb8fbef765fa70e54827cb35e",
-      {
-        url: `https://${region}-${projectId}.cloudfunctions.net/reply`,
-      }
-    );
+    isValid = twilio.validateExpressRequest(req, twilioKey, {
+      url: `https://${region}-${projectId}.cloudfunctions.net/reply`,
+    });
   }
 
   // Halt early if the request was not sent from Twilio

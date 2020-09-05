@@ -20,6 +20,7 @@ test_production:
     - CGO_ENABLED=0 go test ./...
 
 deploy_production:
+  image: google/cloud-sdk:alpine
   stage: deploy
   environment: Production
   only:

@@ -22,13 +22,13 @@ async function accessSecretVersion() {
     name: name,
   });
 
-  const twilioKey = accessResponse.payload.data.toString("utf8");
-  return twilioKey;
+  return accessResponse.payload.data.toString("utf8");
 }
 
 exports.reply = async (req, res) => {
   let isValid = true;
   const twilioKey = await accessSecretVersion();
+  console.log(twilioKey);
 
   // Only validate that requests came from Twilio when the function has been
   // deployed to production.

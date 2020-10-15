@@ -28,7 +28,6 @@ async function accessSecretVersion() {
 exports.reply = async (req, res) => {
   let isValid = true;
   const twilioKey = await accessSecretVersion();
-  console.log(twilioKey);
 
   // Only validate that requests came from Twilio when the function has been
   // deployed to production.

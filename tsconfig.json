@@ -6,7 +6,8 @@
     "outDir": "",
     "target": "es2017",
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["node"]
   },
   "compileOnSave": true,
   "include": ["src"]

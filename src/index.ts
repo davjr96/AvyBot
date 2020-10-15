@@ -1,9 +1,9 @@
 "use strict";
 
-const axios = require("axios");
-const cheerio = require("cheerio");
-const twilio = require("twilio");
-const { SecretManagerServiceClient } = require("@google-cloud/secret-manager");
+import axios from "axios";
+import cheerio from "cheerio";
+import twilio from "twilio";
+import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 
 const client = new SecretManagerServiceClient();
 
@@ -48,13 +48,13 @@ exports.reply = async (req, res) => {
     return;
   }
 
-  var twiml = new MessagingResponse();
+  const twiml = new MessagingResponse();
   axios
     .get(url)
     .then(function (response) {
       // handle success
-      let $ = cheerio.load(response["data"]);
-      let divs = $("#bottom-line");
+      const $ = cheerio.load(response["data"]);
+      const divs = $("#bottom-line");
       twiml.message(divs.text());
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());

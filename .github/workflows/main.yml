@@ -22,7 +22,7 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
     - run: npm install --only=dev
-    - run: npx tsc -v
+    - run: npx tsc index.ts
     - run: gcloud info
     - run: gcloud --project ${{ secrets.GCP_PROJECT_ID }} functions deploy reply --runtime nodejs12 --trigger-http
 

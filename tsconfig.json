@@ -3,9 +3,10 @@
     "lib": ["es2017"],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "sourceMap": true,
+    "outDir": "",
     "target": "es2017",
     "types": ["node"]
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "include": ["src"]
 }

@@ -22,7 +22,7 @@ async function accessSecretVersion() {
     name: name,
   });
 
-  return accessResponse.payload.data.toString("utf8");
+  return accessResponse.payload.data.toString();
 }
 
 exports.reply = async (req, res) => {

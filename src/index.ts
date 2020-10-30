@@ -12,7 +12,7 @@ const MessagingResponse = twilio.twiml.MessagingResponse;
 const projectId = "avybot";
 const region = "us-central1";
 
-const url = "https://www.sierraavalanchecenter.org/advisory-rss.xml";
+const url = "https://www.sierraavalanchecenter.org/advisory";
 
 async function accessSecretVersion() {
   // Access the twilio.

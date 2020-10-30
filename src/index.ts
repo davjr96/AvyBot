@@ -25,6 +25,22 @@ async function accessSecretVersion() {
   return accessResponse.payload.data.toString();
 }
 
+async function parseData() {
+  return axios
+    .get(url)
+    .then(function (response) {
+      // handle success
+      const $ = cheerio.load(response["data"]);
+      const divs = $("#bottom-line");
+      return divs.text();
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+      return "Error Parsing Forecast";
+    });
+}
+
 exports.reply = async (req, res) => {
   let isValid = true;
   const twilioKey = await accessSecretVersion();
@@ -47,20 +63,15 @@ exports.reply = async (req, res) => {
     return;
   }
 
-  const twiml = new MessagingResponse();
-  axios
-    .get(url)
-    .then(function (response) {
-      // handle success
-      const $ = cheerio.load(response["data"]);
-      const divs = $("#bottom-line");
-      twiml.message(divs.text());
-      console.log(divs.text());
-      res.writeHead(200, { "Content-Type": "text/xml" });
-      res.end(twiml.toString());
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
+  const messageText = await parseData();
+  console.log(messageText);
+
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  if (process.env.NODE_ENV === "production") {
+    const twiml = new MessagingResponse();
+    twiml.message(messageText);
+    res.end(twiml.toString());
+  } else {
+    res.end("");
+  }
 };

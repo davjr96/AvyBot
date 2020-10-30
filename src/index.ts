@@ -55,6 +55,7 @@ exports.reply = async (req, res) => {
       const $ = cheerio.load(response["data"]);
       const divs = $("#bottom-line");
       twiml.message(divs.text());
+      console.log(divs.text());
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());
     })

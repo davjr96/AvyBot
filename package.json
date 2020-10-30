@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "functions-framework --target=reply",
+    "start": "npx tsc && functions-framework --target=reply",
     "watch": "npm-watch start"
   },
   "author": "",
   "license": "ISC",
   "watch": {
-    "start": "index.js"
+    "start": "index.ts"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^1.7.1",

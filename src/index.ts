@@ -29,13 +29,11 @@ async function parseData() {
   return axios
     .get(url)
     .then(function (response) {
-      // handle success
       const $ = cheerio.load(response["data"]);
       const divs = $("#bottom-line");
       return divs.text();
     })
     .catch(function (error) {
-      // handle error
       console.log(error);
       return "Error Parsing Forecast";
     });
@@ -67,6 +65,7 @@ exports.reply = async (req, res) => {
   console.log(messageText);
 
   res.writeHead(200, { "Content-Type": "text/xml" });
+
   if (process.env.NODE_ENV === "production") {
     const twiml = new MessagingResponse();
     twiml.message(messageText);
